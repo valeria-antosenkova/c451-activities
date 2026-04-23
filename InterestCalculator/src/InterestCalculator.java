@@ -27,7 +27,7 @@ public class InterestCalculator {
         for (int i = 1; i <= years; i++) {
             double yearStart = currentBalance;   // starting balance at start of year
 
-            // compound interest 4 times 
+            // compound interest 4 times
             for (int j = 1; j <= 4; j++) {
                 currentBalance = yearStart * (1 + quarterlyRate);
 
