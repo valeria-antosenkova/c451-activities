@@ -30,6 +30,7 @@ public class RockPaperScissors {
 
                 int userChoice = sc.nextInt();
 
+                // keep prompting the user for correct option
                 // if user picks an option outside of range
                 while (userChoice < 1 || userChoice > 3) {
                     System.out.println("Invalid input!");
@@ -46,37 +47,24 @@ public class RockPaperScissors {
                 // get a string name of the move
                 computerChoiceName = getChoiceName(computerChoice);
 
-                if (userChoice == computerChoice) {
+                // depending on the user-computer choices determine who wins the round
+                int result = determineWinner(userChoice, computerChoice);
+
+                if (result == 0) {
                     System.out.println("It's a tie!");
                     System.out.println("Computer picked: " + computerChoiceName);
                     ties++;
-                } else if (
-                        (userChoice == 1 && computerChoice == 3) || // rock wins scissors
-                                (userChoice == 2 && computerChoice == 1) || // paper wins rock
-                                (userChoice == 3 && computerChoice == 2) // scissors win paper
-                ) {
+                } else if (result == 1) {
                     System.out.println("You win this round!");
                     userWins++;
                 } else {
                     System.out.println("Computer wins this round! (It picked " + computerChoiceName + ")");
-
                     computerWins++;
                 }
             }
 
-            // final result
-            System.out.println("\nFinal Score:");
-            System.out.println("You (wins): " + userWins);
-            System.out.println("Computer (wins): " + computerWins);
-            System.out.println("Ties: " + ties);
-
-            if (userWins > computerWins) {
-                System.out.println("You win the game!");
-            } else if (computerWins > userWins) {
-                System.out.println("Computer wins the game!");
-            } else {
-                System.out.println("It's a tie!");
-            }
+            // print final result
+            printFinalResults(userWins, computerWins, ties);
 
             // clear any potential leftovers in the buffer before we continue with a new game
             sc.nextLine();
@@ -95,6 +83,9 @@ public class RockPaperScissors {
         sc.close();
     }
 
+    /**
+     * Converts numeric choice into a readable text string.
+     */
     public static String getChoiceName(int choice) {
         switch (choice) {
             case 1:
@@ -108,6 +99,10 @@ public class RockPaperScissors {
         }
     }
 
+    /**
+     * Determines the winner of a round.
+     * @return 1 if user wins, -1 if computer wins, 0 if tie
+     */
     public static int determineWinner(int user, int computer) {
         if (user == computer) return 0;
 
@@ -119,5 +114,25 @@ public class RockPaperScissors {
 
         return -1; // computer wins
     }
+
+    /**
+     * Prints the final results after all rounds are completed.
+     */
+    public static void printFinalResults(int userWins, int computerWins, int ties) {
+
+        System.out.println("\nFinal Score:");
+        System.out.println("You (wins): " + userWins);
+        System.out.println("Computer (wins): " + computerWins);
+        System.out.println("Ties: " + ties);
+
+        if (userWins > computerWins) {
+            System.out.println("You win the game!");
+        } else if (computerWins > userWins) {
+            System.out.println("Computer wins the game!");
+        } else {
+            System.out.println("It's a tie!");
+        }
+    }
+
 }
 // test
