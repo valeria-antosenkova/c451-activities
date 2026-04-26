@@ -1,43 +1,43 @@
-public class BookPublishing {
-    private String workingTitle;
-    private String author;
-    private String genre;
-    private int wordCount;
-    private int chapterCount;
-    private int draftVersion;
-    private boolean submittedToPublisher;
-    private StringBuilder manuscript;
+public abstract class BookPublishing {
+    private final String workingTitle;  // read-only
+    private final String author;        // read-only
+    private int wordCount;              // read/write
+    private int draftVersion;           // read/write
 
-    public BookPublishing(String workingTitle, String author, String genre) {
+    public BookPublishing(String workingTitle, String author, int wordCount, int draftVersion) {
         this.workingTitle = workingTitle;
         this.author = author;
-        this.genre = genre;
-        this.wordCount = 0;
-        this.chapterCount = 0;
-        this.draftVersion = 1;
-        this.submittedToPublisher = false;
-        this.manuscript = new StringBuilder();
+        this.wordCount = wordCount;
+        this.draftVersion = draftVersion;
     }
 
-    public void addChapter(String chapterText, int words) {
-        manuscript.append(chapterText).append("\n\n");
-        chapterCount++;
-        wordCount += Math.max(0, words);
+    public String getWorkingTitle() {
+        return workingTitle;
     }
 
-    public void reviseDraft(String updatedText, int newWordCount) {
-        manuscript = new StringBuilder(updatedText);
-        wordCount = Math.max(0, newWordCount);
-        draftVersion++;
-        submittedToPublisher = false;
+    public String getAuthor() {
+        return author;
     }
 
-    public void submitToPublisher() {
-        submittedToPublisher = true;
+    public int getWordCount() {
+        return wordCount;
     }
 
-    public int estimateReadingTimeMinutes() {
-        int wordsPerMinute = 250;
-        return Math.max(1, (int) Math.ceil(wordCount / (double) wordsPerMinute));
+    public void setWordCount(int wordCount) {
+        this.wordCount = wordCount;
     }
+
+    public int getDraftVersion() {
+        return draftVersion;
+    }
+
+    public void setDraftVersion(int draftVersion) {
+        this.draftVersion = draftVersion;
+    }
+
+    public abstract void addChapter(String title);
+
+    public abstract void reviseDraft();
+
+    public abstract void submitForReview();
 }

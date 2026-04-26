@@ -1,50 +1,45 @@
-public class HouseDesign3D {
-    private String modelName;
-    private int floors;
-    private double widthMeters;
-    private double lengthMeters;
-    private double wallHeightMeters;
-    private String roofStyle;
-    private int windowCount;
-    private int doorCount;
-    private boolean hasGarage;
+public abstract class HouseDesign3D {
+    private final String modelName;     // read-only
+    private int floors;                 // read/write
+    private double widthMeters;         // read/write
+    private double lengthMeters;        // read/write
 
-    public HouseDesign3D(String modelName, int floors, double widthMeters, double lengthMeters,
-                         double wallHeightMeters, String roofStyle, boolean hasGarage) {
+    public HouseDesign3D(String modelName, int floors, double widthMeters, double lengthMeters) {
         this.modelName = modelName;
         this.floors = floors;
         this.widthMeters = widthMeters;
         this.lengthMeters = lengthMeters;
-        this.wallHeightMeters = wallHeightMeters;
-        this.roofStyle = roofStyle;
-        this.hasGarage = hasGarage;
     }
 
-    public void addWindows(int count) {
-        if (count > 0) {
-            this.windowCount += count;
-        }
+    public String getModelName() {
+        return modelName;
     }
 
-    public void addDoors(int count) {
-        if (count > 0) {
-            this.doorCount += count;
-        }
+    public int getFloors() {
+        return floors;
     }
 
-    public double getFootprintAreaSqM() {
-        return widthMeters * lengthMeters;
+    public void setFloors(int floors) {
+        this.floors = floors;
     }
 
-    public double getInteriorVolumeCubicM() {
-        return getFootprintAreaSqM() * wallHeightMeters * floors;
+    public double getWidthMeters() {
+        return widthMeters;
     }
 
-    public void resize(double newWidthMeters, double newLengthMeters, double newWallHeightMeters) {
-        if (newWidthMeters > 0 && newLengthMeters > 0 && newWallHeightMeters > 0) {
-            this.widthMeters = newWidthMeters;
-            this.lengthMeters = newLengthMeters;
-            this.wallHeightMeters = newWallHeightMeters;
-        }
+    public void setWidthMeters(double widthMeters) {
+        this.widthMeters = widthMeters;
     }
+
+    public double getLengthMeters() {
+        return lengthMeters;
+    }
+
+    public void setLengthMeters(double lengthMeters) {
+        this.lengthMeters = lengthMeters;
+    }
+
+    public abstract void renderPreview();
+
+    public abstract double calculateFloorArea();
 }

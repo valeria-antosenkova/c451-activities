@@ -1,60 +1,47 @@
-import java.util.ArrayList;
-import java.util.List;
+public abstract class BookCatalog {
+    private final String isbn;          // read-only
+    private String title;               // read/write
+    private String author;              // read/write
+    private int copiesAvailable;        // read/write
 
-public class BookCatalog {
-    private String isbn;
-    private String title;
-    private String author;
-    private String publisher;
-    private int publicationYear;
-    private String callNumber;
-    private int copiesOwned;
-    private int copiesAvailable;
-    private List<String> keywords;
-
-    public BookCatalog(String isbn, String title, String author, String publisher,
-                       int publicationYear, String callNumber, int copiesOwned) {
+    public BookCatalog(String isbn, String title, String author, int copiesAvailable) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
-        this.publisher = publisher;
-        this.publicationYear = publicationYear;
-        this.callNumber = callNumber;
-        this.copiesOwned = Math.max(0, copiesOwned);
-        this.copiesAvailable = Math.max(0, copiesOwned);
-        this.keywords = new ArrayList<>();
+        this.copiesAvailable = copiesAvailable;
     }
 
-    public boolean checkout() {
-        if (copiesAvailable <= 0) {
-            return false;
-        }
-        copiesAvailable--;
-        return true;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void checkin() {
-        if (copiesAvailable < copiesOwned) {
-            copiesAvailable++;
-        }
+    public String getTitle() {
+        return title;
     }
 
-    public void addKeyword(String keyword) {
-        if (keyword != null && !keyword.isEmpty()) {
-            keywords.add(keyword.toLowerCase());
-        }
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public boolean matchesSearch(String query) {
-        String q = query.toLowerCase();
-        if (title.toLowerCase().contains(q) || author.toLowerCase().contains(q) || isbn.contains(q)) {
-            return true;
-        }
-        for (String keyword : keywords) {
-            if (keyword.contains(q)) {
-                return true;
-            }
-        }
-        return false;
+    public String getAuthor() {
+        return author;
     }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getCopiesAvailable() {
+        return copiesAvailable;
+    }
+
+    public void setCopiesAvailable(int copiesAvailable) {
+        this.copiesAvailable = copiesAvailable;
+    }
+
+    public abstract boolean checkout();
+
+    public abstract void checkin();
+
+    public abstract boolean matchesQuery(String query);
 }

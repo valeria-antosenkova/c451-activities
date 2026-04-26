@@ -1,44 +1,43 @@
-import java.time.LocalDate;
+public abstract class IceCreamStock {
+    private final String sku;           // read-only
+    private final String flavor;        // read-only
+    private int unitsOnHand;            // read/write
+    private int reorderPoint;           // read/write
 
-public class IceCreamStock {
-    private String sku;
-    private String flavor;
-    private int containerSizeMl;
-    private int unitsOnHand;
-    private int reorderPoint;
-    private LocalDate expirationDate;
-    private double storageTempC;
-
-    public IceCreamStock(String sku, String flavor, int containerSizeMl, int unitsOnHand,
-                         int reorderPoint, LocalDate expirationDate, double storageTempC) {
+    public IceCreamStock(String sku, String flavor, int unitsOnHand, int reorderPoint) {
         this.sku = sku;
         this.flavor = flavor;
-        this.containerSizeMl = containerSizeMl;
         this.unitsOnHand = unitsOnHand;
         this.reorderPoint = reorderPoint;
-        this.expirationDate = expirationDate;
-        this.storageTempC = storageTempC;
     }
 
-    public void receiveShipment(int units) {
-        if (units > 0) {
-            unitsOnHand += units;
-        }
+    public String getSku() {
+        return sku;
     }
 
-    public boolean sellUnits(int units) {
-        if (units <= 0 || units > unitsOnHand) {
-            return false;
-        }
-        unitsOnHand -= units;
-        return true;
+    public String getFlavor() {
+        return flavor;
     }
 
-    public boolean isLowStock() {
-        return unitsOnHand <= reorderPoint;
+    public int getUnitsOnHand() {
+        return unitsOnHand;
     }
 
-    public boolean isExpired(LocalDate today) {
-        return today.isAfter(expirationDate);
+    public void setUnitsOnHand(int unitsOnHand) {
+        this.unitsOnHand = unitsOnHand;
     }
+
+    public int getReorderPoint() {
+        return reorderPoint;
+    }
+
+    public void setReorderPoint(int reorderPoint) {
+        this.reorderPoint = reorderPoint;
+    }
+
+    public abstract void restock(int units);
+
+    public abstract boolean sell(int units);
+
+    public abstract boolean isLowStock();
 }

@@ -1,45 +1,45 @@
-public class CarInventory {
-    private String vin;
-    private String make;
-    private String model;
-    private int year;
-    private int mileage;
-    private String color;
-    private double listPrice;
-    private boolean sold;
+public abstract class CarInventory {
+    private final String vin;           // read-only
+    private String make;                // read/write
+    private double listPrice;           // read/write
+    private boolean sold;               // read/write
 
-    public CarInventory(String vin, String make, String model, int year, int mileage, String color, double listPrice) {
+    public CarInventory(String vin, String make, double listPrice, boolean sold) {
         this.vin = vin;
         this.make = make;
-        this.model = model;
-        this.year = year;
-        this.mileage = mileage;
-        this.color = color;
         this.listPrice = listPrice;
-        this.sold = false;
+        this.sold = sold;
     }
 
-    public String getDisplayName() {
-        return year + " " + make + " " + model;
+    public String getVin() {
+        return vin;
     }
 
-    public void applyDiscountPercent(double percent) {
-        if (percent > 0 && percent <= 100) {
-            listPrice -= listPrice * (percent / 100.0);
-        }
+    public String getMake() {
+        return make;
     }
 
-    public void markSold() {
-        this.sold = true;
-    }
-
-    public void updateMileage(int mileage) {
-        if (mileage >= this.mileage) {
-            this.mileage = mileage;
-        }
+    public void setMake(String make) {
+        this.make = make;
     }
 
     public double getListPrice() {
         return listPrice;
     }
+
+    public void setListPrice(double listPrice) {
+        this.listPrice = listPrice;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
+    }
+
+    public abstract void markSold();
+
+    public abstract void applyDiscount(double percent);
 }

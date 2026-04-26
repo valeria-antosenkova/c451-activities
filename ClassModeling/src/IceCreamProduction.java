@@ -1,49 +1,43 @@
-public class IceCreamProduction {
-    private String batchId;
-    private String flavor;
-    private double mixVolumeLiters;
-    private double fatPercent;
-    private double temperatureC;
-    private boolean pasteurized;
-    private boolean homogenized;
-    private boolean aged;
-    private double packagedLiters;
+public abstract class IceCreamProduction {
+    private final String batchId;       // read-only
+    private final String flavor;        // read-only
+    private double temperatureC;        // read/write
+    private double volumeLiters;        // read/write
 
-    public IceCreamProduction(String batchId, String flavor, double mixVolumeLiters, double fatPercent) {
+    public IceCreamProduction(String batchId, String flavor, double temperatureC, double volumeLiters) {
         this.batchId = batchId;
         this.flavor = flavor;
-        this.mixVolumeLiters = mixVolumeLiters;
-        this.fatPercent = fatPercent;
-        this.temperatureC = 22;
+        this.temperatureC = temperatureC;
+        this.volumeLiters = volumeLiters;
     }
 
-    public void pasteurize() {
-        this.temperatureC = 83;
-        this.pasteurized = true;
+    public String getBatchId() {
+        return batchId;
     }
 
-    public void homogenize() {
-        if (pasteurized) {
-            this.homogenized = true;
-        }
+    public String getFlavor() {
+        return flavor;
     }
 
-    public void ageMix() {
-        if (homogenized) {
-            this.temperatureC = 4;
-            this.aged = true;
-        }
+    public double getTemperatureC() {
+        return temperatureC;
     }
 
-    public void freezeAndPackage(double overrunPercent) {
-        if (!aged || overrunPercent < 0) {
-            return;
-        }
-        this.temperatureC = -6;
-        this.packagedLiters = mixVolumeLiters * (1 + overrunPercent / 100.0);
+    public void setTemperatureC(double temperatureC) {
+        this.temperatureC = temperatureC;
     }
 
-    public boolean qualityCheckPassed() {
-        return pasteurized && homogenized && aged && fatPercent >= 8.0;
+    public double getVolumeLiters() {
+        return volumeLiters;
     }
+
+    public void setVolumeLiters(double volumeLiters) {
+        this.volumeLiters = volumeLiters;
+    }
+
+    public abstract void pasteurize();
+
+    public abstract void freeze();
+
+    public abstract boolean passesQualityCheck();
 }

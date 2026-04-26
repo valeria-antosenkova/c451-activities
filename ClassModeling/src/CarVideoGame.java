@@ -1,52 +1,47 @@
-public class CarVideoGame {
-    private String name;
-    private double topSpeed;
-    private double acceleration;
-    private double handling;
-    private double durability;
-    private double nitroLevel;
-    private double currentSpeed;
-    private double health;
+public abstract class CarVideoGame {
+    private final String carId;         // read-only
+    private double speed;               // read/write
+    private double health;              // read/write
+    private double nitro;               // read/write
 
-    public CarVideoGame(String name, double topSpeed, double acceleration, double handling, double durability) {
-        this.name = name;
-        this.topSpeed = topSpeed;
-        this.acceleration = acceleration;
-        this.handling = handling;
-        this.durability = durability;
-        this.nitroLevel = 100;
-        this.health = 100;
+    public CarVideoGame(String carId, double speed, double health, double nitro) {
+        this.carId = carId;
+        this.speed = speed;
+        this.health = health;
+        this.nitro = nitro;
     }
 
-    public void accelerate(double seconds) {
-        currentSpeed += acceleration * seconds;
-        if (currentSpeed > topSpeed) {
-            currentSpeed = topSpeed;
-        }
+    public String getCarId() {
+        return carId;
     }
 
-    public void brake(double seconds) {
-        currentSpeed -= (acceleration * 1.3) * seconds;
-        if (currentSpeed < 0) {
-            currentSpeed = 0;
-        }
+    public double getSpeed() {
+        return speed;
     }
 
-    public double steer(double turnInput) {
-        return turnInput * handling;
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 
-    public void useNitro(double seconds) {
-        if (nitroLevel <= 0) {
-            return;
-        }
-        double consumed = 15 * seconds;
-        nitroLevel = Math.max(0, nitroLevel - consumed);
-        currentSpeed = Math.min(topSpeed * 1.2, currentSpeed + 25 * seconds);
+    public double getHealth() {
+        return health;
     }
 
-    public void takeDamage(double impactForce) {
-        double damage = impactForce / durability;
-        health = Math.max(0, health - damage);
+    public void setHealth(double health) {
+        this.health = health;
     }
+
+    public double getNitro() {
+        return nitro;
+    }
+
+    public void setNitro(double nitro) {
+        this.nitro = nitro;
+    }
+
+    public abstract void accelerate();
+
+    public abstract void brake();
+
+    public abstract void useNitro();
 }

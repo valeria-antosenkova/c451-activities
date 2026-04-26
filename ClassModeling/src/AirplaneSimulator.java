@@ -1,57 +1,45 @@
-public class AirplaneSimulator {
-    private String aircraftModel;
-    private double fuelKg;
-    private double thrustPercent;
-    private double pitch;
-    private double roll;
-    private double yaw;
-    private int flapsPosition;
-    private boolean gearDown;
-    private double airspeedKnots;
-    private double altitudeFeet;
+public abstract class AirplaneSimulator {
+    private final String aircraftModel; // read-only
+    private double throttlePercent;     // read/write
+    private double pitch;               // read/write
+    private double roll;                // read/write
 
-    public AirplaneSimulator(String aircraftModel, double fuelKg) {
+    public AirplaneSimulator(String aircraftModel, double throttlePercent, double pitch, double roll) {
         this.aircraftModel = aircraftModel;
-        this.fuelKg = fuelKg;
-        this.thrustPercent = 0;
-        this.gearDown = true;
-    }
-
-    public void setControlInputs(double pitch, double roll, double yaw) {
+        this.throttlePercent = throttlePercent;
         this.pitch = pitch;
         this.roll = roll;
-        this.yaw = yaw;
     }
 
-    public void setThrustPercent(double thrustPercent) {
-        if (thrustPercent < 0) {
-            this.thrustPercent = 0;
-        } else if (thrustPercent > 100) {
-            this.thrustPercent = 100;
-        } else {
-            this.thrustPercent = thrustPercent;
-        }
+    public String getAircraftModel() {
+        return aircraftModel;
     }
 
-    public void setFlapsPosition(int flapsPosition) {
-        if (flapsPosition >= 0 && flapsPosition <= 4) {
-            this.flapsPosition = flapsPosition;
-        }
+    public double getThrottlePercent() {
+        return throttlePercent;
     }
 
-    public void setGearDown(boolean gearDown) {
-        this.gearDown = gearDown;
+    public void setThrottlePercent(double throttlePercent) {
+        this.throttlePercent = throttlePercent;
     }
 
-    public void simulateStep(double seconds) {
-        airspeedKnots += (thrustPercent * 0.06 - flapsPosition * 0.7) * seconds;
-        altitudeFeet += (pitch * 15) * seconds;
-        fuelKg -= thrustPercent * 0.02 * seconds;
-        if (fuelKg < 0) {
-            fuelKg = 0;
-        }
-        if (airspeedKnots < 0) {
-            airspeedKnots = 0;
-        }
+    public double getPitch() {
+        return pitch;
     }
+
+    public void setPitch(double pitch) {
+        this.pitch = pitch;
+    }
+
+    public double getRoll() {
+        return roll;
+    }
+
+    public void setRoll(double roll) {
+        this.roll = roll;
+    }
+
+    public abstract void applyControls();
+
+    public abstract void simulateStep(double seconds);
 }
