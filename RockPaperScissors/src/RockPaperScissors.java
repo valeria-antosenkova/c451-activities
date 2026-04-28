@@ -82,7 +82,7 @@ public class RockPaperScissors {
     /**
      * Plays one round of the game.
      * @param sc the Scanner used to read user input
-     * @param random the Rand   om object used to generate the computer's choice
+     * @param random the Random object used to generate the computer's choice
      * @param round the current round number
      * @return 1 if user wins, -1 if computer wins, 0 if tie
      */
