@@ -21,26 +21,34 @@ public class ClassRosterView {
     }
 
     public Student getNewStudentInfo() {
-        String studentId = io.readString("Please enter Student ID: ");
+        String studentId = io.readString("Please enter Student ID");
+        String firstName = io.readString("Please enter First Name");
+        String lastName = io.readString("Please enter Last Name");
+        String cohort = io.readString("Please enter Cohort");
         Student currentStudent = new Student(studentId);
-
-        currentStudent.setFirstName(io.readString("Please enter First Name: "));
-        currentStudent.setLastName(io.readString("Please enter Last Name: "));
-        currentStudent.setCohort(io.readString("Please enter Cohort: "));
-
+        currentStudent.setFirstName(firstName);
+        currentStudent.setLastName(lastName);
+        currentStudent.setCohort(cohort);
         return currentStudent;
     }
 
     public void displayStudentList(List<Student> studentList) {
-        io.print("=== Student List ===");
-        if (studentList.isEmpty()) {
-            io.print("No students found.");
-        } else {
-            for (Student currentStudent : studentList) {
-                io.print(currentStudent.getStudentId() + ": " + currentStudent);
-            }
+        for (Student currentStudent : studentList) {
+            String studentInfo = String.format("#%s : %s %s",
+                    currentStudent.getStudentId(),
+                    currentStudent.getFirstName(),
+                    currentStudent.getLastName());
+            io.print(studentInfo);
         }
         io.readString("Please hit enter to continue.");
+    }
+
+    public void displayDisplayAllBanner() {
+        io.print("=== Display All Students ===");
+    }
+
+    public void displayDisplayStudentBanner () {
+        io.print("=== Display Student ===");
     }
 
     public String getStudentIdChoice() {
@@ -57,15 +65,35 @@ public class ClassRosterView {
             io.print("Last Name: " + student.getLastName());
             io.print("Cohort: " + student.getCohort());
         }
-        io.readString("Please hit enter to continue.");
+        io.readString("Please hit enter to continue.\n");
+    }
+
+    public void displayCreateStudentBanner() {
+        io.print("=== Create Student ===");
     }
 
     public void displayCreateSuccessBanner() {
         io.print("Student successfully created.");
     }
 
-    public void displayRemoveResult(boolean removed) {
-        io.print(removed ? "Student successfully removed." : "No student was removed.");
+    public void displayRemoveStudentBanner () {
+        io.print("=== Remove Student ===");
+    }
+
+    public void displayRemoveResult(Student studentRecord) {
+        if(studentRecord != null){
+            io.print("Student successfully removed.");
+        }else{
+            io.print("No such student.");
+        }
+        io.readString("Please hit enter to continue.");
+    }
+
+
+
+    public void displayErrorMessage(String errorMsg) {
+        io.print("=== ERROR ===");
+        io.print(errorMsg);
     }
 
     public void displayUnknownCommandBanner() {
@@ -74,5 +102,9 @@ public class ClassRosterView {
 
     public void displayExitBanner() {
         io.print("Good Bye!");
+    }
+
+    public void displayRemoveSuccessBanner() {
+        io.print("Student successfully removed.");
     }
 }
