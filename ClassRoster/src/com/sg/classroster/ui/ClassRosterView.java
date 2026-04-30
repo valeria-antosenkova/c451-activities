@@ -103,8 +103,4 @@ public class ClassRosterView {
     public void displayExitBanner() {
         io.print("Good Bye!");
     }
-
-    public void displayRemoveSuccessBanner() {
-        io.print("Student successfully removed.");
-    }
 }

@@ -1,0 +1,10 @@
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/dao/MonsterDao.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/dao/implementations/AGoodMonsterDao.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/dao/implementations/buggy/BadMonsterDaoA.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/dao/implementations/buggy/BadMonsterDaoB.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/dao/implementations/buggy/BadMonsterDaoC.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/dao/implementations/buggy/BadMonsterDaoD.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/dao/implementations/buggy/BadMonsterDaoE.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/dao/implementations/buggy/BadMonsterDaoF.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/model/Monster.java
+/Users/v-an/c451-activities/MonstrousDao/src/main/java/com/sg/testing/model/MonsterType.java

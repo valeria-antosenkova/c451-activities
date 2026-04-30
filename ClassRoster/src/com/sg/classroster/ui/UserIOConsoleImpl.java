@@ -13,7 +13,6 @@ public class UserIOConsoleImpl implements UserIO {
     @Override
     public String readString(String prompt) {
         System.out.print(prompt);
-        System.out.flush();
         return scanner.nextLine();
     }
 

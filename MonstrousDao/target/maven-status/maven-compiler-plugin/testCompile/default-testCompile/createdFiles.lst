@@ -1,0 +1,8 @@
+com/sg/testing/dao/MonsterDaoTestBase.class
+com/sg/testing/dao/BadMonsterDaoETest.class
+com/sg/testing/dao/BadMonsterDaoATest.class
+com/sg/testing/dao/AGoodMonsterDaoTest.class
+com/sg/testing/dao/BadMonsterDaoDTest.class
+com/sg/testing/dao/BadMonsterDaoFTest.class
+com/sg/testing/dao/BadMonsterDaoBTest.class
+com/sg/testing/dao/BadMonsterDaoCTest.class

@@ -159,11 +159,6 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
      * @throws ClassRosterPersistenceException if an error occurs writing to the file
      */
     private void writeRoster() throws ClassRosterPersistenceException {
-        // NOTE FOR APPRENTICES: We are not handling the IOException - but
-        // we are translating it to an application specific exception and
-        // then simple throwing it (i.e. 'reporting' it) to the code that
-        // called us.  It is the responsibility of the calling code to
-        // handle any errors that occur.
         PrintWriter out;
 
         try {
@@ -173,14 +168,10 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
                     "Could not save student data.", e);
         }
 
-        // Write out the Student objects to the roster file.
-        // NOTE TO THE APPRENTICES: We could just grab the student map,
-        // get the Collection of Students and iterate over them but we've
-        // already created a method that gets a List of Students so
-        // we'll reuse it.
+        // Write out the Student objects to the roster file directly from the map
+        // to avoid re-invoking loadRoster() via getAllStudents().
         String studentAsText;
-        List<Student> studentList = this.getAllStudents();
-        for (Student currentStudent : studentList) {
+        for (Student currentStudent : students.values()) {
             // turn a Student into a String
             studentAsText = marshallStudent(currentStudent);
             // write the Student object to the file
