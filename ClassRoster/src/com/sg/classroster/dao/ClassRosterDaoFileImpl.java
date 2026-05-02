@@ -15,10 +15,16 @@ import java.io.PrintWriter;
 
 public class ClassRosterDaoFileImpl implements ClassRosterDao {
     private final Map<String, Student> students = new HashMap<>();
-    public static final String ROSTER_FILE = "roster.txt";
+    public static String ROSTER_FILE = "";
     public static final String DELIMITER = "::";
 
+    public ClassRosterDaoFileImpl(){
+        ROSTER_FILE = "roster.txt";
+    }
 
+    public ClassRosterDaoFileImpl(String rosterTextFile){
+        ROSTER_FILE = rosterTextFile;
+    }
 
     @Override
     public Student addStudent(String studentId, Student student)
@@ -102,9 +108,9 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
                     new BufferedReader(
                             new FileReader(ROSTER_FILE)));
         } catch (FileNotFoundException e) {
-            throw new ClassRosterPersistenceException(
-                    "-_- Could not load roster data into memory.", e);
+            return; // blank file is fine — start with empty roster
         }
+        students.clear(); // clear stale in-memory data before reloading
         // currentLine holds the most recent line read from the file
         String currentLine;
         // currentStudent holds the most recent student unmarshalled
